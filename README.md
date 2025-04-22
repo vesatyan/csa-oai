@@ -4,5 +4,5 @@
 ## Features
 - Excel upload with business, technical, and infrastructure metadata
 - Migration strategy recommendation using basic ML logic
-- OS and cost scoring
+- OS and cost scoring of Assessments
 - Simulated LLM-based reasoning (can be extended to Azure OpenAI)
