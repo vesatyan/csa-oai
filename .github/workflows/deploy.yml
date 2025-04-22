@@ -9,19 +9,21 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    
+    env:
+      REGISTRY_LOGIN_SERVER: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Log in to Azure Container Registry
+      - name: Login to Azure Container Registry
         run: |
-          echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ secrets.REGISTRY_LOGIN_SERVER }} -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin
+          echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ env.REGISTRY_LOGIN_SERVER }} -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin
 
       - name: Build and Push Docker Image to ACR
         run: |
-          docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/cloud-suitability-app:latest .
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/cloud-suitability-app:latest
+          docker build -t ${{ env.REGISTRY_LOGIN_SERVER }}/cloud-suitability-app:latest .
+          docker push ${{ env.REGISTRY_LOGIN_SERVER }}/cloud-suitability-app:latest
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
