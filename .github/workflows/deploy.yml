@@ -22,8 +22,8 @@ jobs:
 
       - name: Build and Push Docker Image to ACR
         run: |
-          docker build -t ${{ env.REGISTRY_LOGIN_SERVER }}/cloud-suitability-app:latest .
-          docker push ${{ env.REGISTRY_LOGIN_SERVER }}/cloud-suitability-app:latest
+          docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/cloud-suitability-app:latest .
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/cloud-suitability-app:latest
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
